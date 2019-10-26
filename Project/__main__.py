@@ -6,19 +6,40 @@ from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
 
+def MSE(yHat, y):
+    return np.sum((yHat - y)**2) / y.size
+
 class Neural_Net():
-	def __init__(self, layers, loss_func=AdamOptimizer):
+	def __init__(self, layers, num_neurons, num_output_neurons = 1, std_dev = 1, loss_func=None):
+		if loss_func == None:
+			self.loss_func = tf.train.AdamOptimizer(learning_rate)
+		else:
+			self.loss_func = loss_func
 		self.layers = layers
+		self.weights = []
+		self.biases = []
+		self.sigs = []
+		#Build layers, with each layer having a dimensional space of features by input_size
+		#With the last output layer being a output layer dealing with binary classes.
+		#For our case, is English speaker or not.
 		for layer in self.layers:
-			self.params.append(layer.params)
-		self.loss_func = loss_func
+			if layer - self.layers != 0:
+				self.weights.append(tf.Variable(tf.random_normal([self.n_features, num_neurons], stddev=std_dev), name = 'Weight' + str(layer)))
+				self.biases.append(tf.Variable(tf.random_normal([num_neurons], stddev = std_dev),name ='Bias' + str(layer)))
+				self.sigs.append(tf.nn.sigmoid((tf.matmul(self.X,self.weights[layer])+self.biases[layer]),name ='ActivationLayer') + str(layer))
+			else:
+				self.weights.append(tf.Variable(tf.random_normal([self.n_features, num_output_neurons], stddev=std_dev), name='Weight'+str(layer)))
+				self.biases.append(tf.Variable(tf.random_normal([self.n_classes]), name='Bias'+str(layer)))
+				self.sigs.append(tf.nn.sigmoid((tf.matmul(self.X,self.weights[layer])+self.biases[layer]),name ='ActivationLayer') + str(layer))
+		self.out_clipped = tf.clip_by_value(output,1e-10,0.9999999)
+		#self.cross_entropy = -tf.reduce_mean(tf.reduce_sum(self.Y * tf.log(out_clipped) + (1-self.Y)*tf.log(1-out_clipped), axis=1))
+		
 
-	def forward(self, X):
-		for layer in self.layers:
-			X = layer.forward(X)
-		return X
+        self.X = tf.placeholder(tf.float32, [None, self.n_features], name='training')
+        self.Y = tf.placeholder(tf.float32, [None, self.n_classes], name='test')
 
-	def backward(self, dout):
+    def run_session()
+    	
 
 
 class RNN():
