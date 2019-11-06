@@ -1,11 +1,12 @@
-addpath('./voicebox/')
+addpath('VOICEBOX');
+addpath('ece114_speech_data/ece114_speech_data/');
 feat_vec_rnn=[];
 feat_cell={};
 labels=[];
-files = dir('*.wav');
+files = dir('ece114_speech_data/ece114_speech_data/*.wav')
 count=1;
 for file = files'
-    disp(file.name)
+    disp(file.name);
     [audio,fs]=audioread(file.name);
     mfccs=v_melcepst(audio,fs);
     feat_cell{count}=mfccs;

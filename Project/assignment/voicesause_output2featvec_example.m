@@ -1,5 +1,5 @@
-files = dir('*.mat');
-
+addpath('voicesauce');
+files = dir('ece114_speech_data/ece114_speech_data/*.wav');
 feat_vec=[];
 labels=[];
 for file = files'
@@ -13,11 +13,10 @@ for file = files'
         mean(remove_nan(CPP)) mean(remove_nan(F2K))];
     
     feat_vec=[feat_vec; use_data];
-    labels=[labels; contains(file.name,'english')];
     clearvars -except feat_vec files file labels
 end
 
 
-function output = remove_nan(input)
+function output = remove_(input)
 output=input(~isnan(input));
 end
