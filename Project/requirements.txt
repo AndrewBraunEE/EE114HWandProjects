@@ -3,3 +3,6 @@ matplotlib
 tensorflow
 scikit
 scipy
+keras
+pandas
+sklearn
