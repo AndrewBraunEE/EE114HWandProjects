@@ -2,3 +2,6 @@ numpy
 matplotlib
 tensorflow
 scipy
+keras
+pandas
+sklearn
