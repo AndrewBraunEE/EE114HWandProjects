@@ -1,11 +1,8 @@
 files = dir('ece114_speech_data/*.wav');
-idx = 1;
 for file = files'
 
-filename = file.name;
+filename = 'afrikaans1.wav';
 [y,fs] = audioread(filename);
-fss(idx,1) = fs;
-idx = idx + 1;
 % [yy,gg,tt,ff,zo]=v_ssubmmsev(y,fs);
 % 
 % windowed_y = yy(1:200000);
