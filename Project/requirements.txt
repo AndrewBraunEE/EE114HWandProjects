@@ -1,8 +1,12 @@
 numpy
 matplotlib
-tensorflow
+tensorflow-gpu
 scipy
 keras
 pandas
 sklearn
 keract
+jupyter
+jupyterlab
+google.cloud
+noisereduce
