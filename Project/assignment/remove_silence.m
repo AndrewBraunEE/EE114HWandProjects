@@ -8,16 +8,16 @@
 % end
 
 files = dir('ece114_speech_data/*.wav');
-for i = 55:55
+for i = 1:170
 
     clear y yy speech
     [y,fs] = audioread(files(i).name);
-    %[yy,gg,tt,ff,zo]=v_ssubmmsev(y,fs);
-    [lev,af,fso,vad]=v_activlev(y,fs,3);
+    [yy,gg,tt,ff,zo]=v_ssubmmsev(y,fs);
+    [lev,af,fso,vad]=v_activlev(yy,fs,3);
     m = 1;
-    for k = 1:size(y,1)
+    for k = 1:size(yy,1)
         if vad(k) == 1
-            speech(m) = y(k);
+            speech(m) = yy(k);
             m = m + 1;
         end
     end
