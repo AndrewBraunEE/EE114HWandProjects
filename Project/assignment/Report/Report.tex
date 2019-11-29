@@ -22,9 +22,11 @@
 \end{abstract}
 
 \begin{keywords}
-accent ID,
-machine learning,
-neural network
+neural network,
+CNN,
+LSTM,
+MFCC,
+LPC
 \end{keywords}
 
 \section{Introduction}
@@ -81,13 +83,13 @@ The configuration of the network is given in \Cref{fig:hybrid}.
 	\label{fig:hybrid}
 \end{figure}
 
-\subsection{Filter bank energies}
+\subsection{Filter bank energies and LPCs}
 \label{subsec:fbe}
 
-Lastly, we attempted to use filter bank energies in our neural network.
-Previous research has shown success using filter bank energies, or FBEs, for accent classification and speech recognition \cite{Paliwal, chuaccent}.
-However, when we tested it in our implementation we did not see any improvement in testing accuracy and occasionally even saw a decrease.
-We attempted to use FBEs both by themselves and in addition to MFCCs, but neither attempt gave promising results.
+Lastly, we attempted to use filter bank energies and LPCs in our neural network.
+Previous research has shown success using filter bank energies, or FBEs, for accent classification and speech recognition \cite{Paliwal, chuaccent}, and LPCs have been used for speaker recognition \cite{lpc}.
+However, when we tested them in our implementation we did not see any improvement in testing accuracy and occasionally even saw a decrease.
+We attempted to use FBEs both by themselves and in addition to MFCCs, as well as LPCs by themselves or with MFCCs and FBEs, but none of these attempts gave promising results.
 
 \section{Most successful results}
 \label{sec:success}

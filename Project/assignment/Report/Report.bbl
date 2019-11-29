@@ -32,6 +32,12 @@ Albert Chu, Peter Lai, and Diana Le,
 \newblock ``Accent {C}lassification of {N}on-{N}ative {E}nglish {S}peakers,''
 \newblock .
 
+\bibitem{lpc}
+Shipra Gupta,
+\newblock ``Application of {MFCC} in {Text} {Independent} {Speaker}
+  {Recognition},''
+\newblock 2016.
+
 \bibitem{mfccs}
 Shahenda Sarhan, Mohamed Abu~Elsoud, and Nagham Hassan,
 \newblock ``Text {I}ndependent speaker identification based on {MFCC} and
