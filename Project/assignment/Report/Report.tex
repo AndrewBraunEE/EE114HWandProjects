@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{spconf,amsmath,graphicx}
+\usepackage{cite}
 \usepackage[hidelinks]{hyperref}
 \usepackage{cleveref}
 
@@ -29,15 +30,13 @@ neural network
 \section{Introduction}
 \label{sec:intro}
 
-A neural network is a category of artificial intelligence that uses large sets of data to train and learn such that it can take a new piece of data that it has never seen before and analyze it.
-Most often, this is used to organize information into groups, such that new data can be accurately assigned to the group in which is belongs.
-In this project, we used a data set of 170 speech signals, each of which is a different individual speaking the same sentence, to train a neural net to classify native versus non-native English speaker. 
+Neural networks have found widespread use in speech recognition.
+CNNs \cite{microsoft} and LSTMs \cite{google} are two types of networks that have found some success. 
+In this project, we used a data set of 170 speech signals, each of which is a different individual speaking the same sentence, to train a CNN and LSTM to classify native versus non-native English speakers and compare the performance of the two neural networks. 
 
-The project is restricted to use only the provided data set, which is notably very small, and seemingly inaccurate in its classifications in some cases.
-In other words,  some of the speakers labeled as native clearly struggle to speak the words, and have accents not associated with any English-speaking countries.
-Due to these factors, the primary goal is to figure out what the most effective characteristics regarding speech are, and not necessarily to come up with a perfect identification system.
-Our methodology was to try out different features or characteristics that could logically separate native and non-native English speakers.
-These features could be extracted from a speech signal and fed into the neural net to differentiate between native and non-native speakers.
+Our approach was to figure out what the defining characteristics of different accents are and extract these characteristics from the speech signal.
+We researched different features and characteristics that could effectively separate native and non-native English speakers.
+These features would then be extracted from the speech signal and fed into the neural net, which would classify the features as coming from a native or a non-native English speaker.
 
 \section{Unsuccessful trials}
 \label{sec:unsuccessful}
@@ -47,23 +46,22 @@ In this section, we will briefly describe the many different features and analys
 \subsection{Speech normalization}
 \label{subsec:normalization}
 
-One of the most important hurdles in this project was ensuring that the same parts of the signals were being compared.
-For example, if we compare two different signals at the 11th second, it is unlikely they will be saying the same thing at that time.
+One of the biggest hurdles in this project was ensuring that the same parts of the signals were being compared.
+For example, if we compare two different signals at 11 seconds in, it is unlikely they will be saying the same thing at that time.
 To get around this, there must be a way to  either choose features that encompass the whole signal (like pitch, which should be relatively constant throughout), or find some way to normalize the signals.
 The most common way of doing this is dynamic time warping.
 Dynamic time warping compares two similar signals of different duration and attempts to normalize them in the time domain.
 
-The issue is that performing dynamic time warping on these long signals, some with over a million samples, requires extremely computationally and data intensive work.
-MATLAB suggested that it needed to use matrices that were 10 TB in size.
-We then tried time warping small frames of each signal, but this would distort them to the point of being unrecognizable.
-Moreover, since we had more than two signals, it would be difficult to perform dynamic time warping that made them all equivalent.
-We also attempted to use Euclidean distance from the training data to 3 known speakers that had non-noisy speech, different accents, and different voices (one male American, one female British, one male Irish).
-Unfortunately, this feature did not correlate well and during training gave a testing error of ~52\%.
+Our issue was that performing dynamic time warping on these long signals, some with over a million samples, was computationally impossible.
+MATLAB would need to generate a million by million matrix that would take up over a terabyte in memory.
+To get around this, we tried time warping short frames of the signal, each only a few milliseconds at most, but this would distort the frames to the point of being unrecognizable.
+Moreover, since we had more than two signals, it would be difficult to perform dynamic time warping that would make them all equivalent.
+We attempted to use Euclidean distance from the training data to three known English speakers that had non-noisy speech, different accents, and different voices (one male American, one female British, one male Irish), but unfortunately, this feature did not correlate well with actual accent and during training gave a testing error of ~52\%.
 
 \subsection{Vowel extraction}
 \label{subsec:vowel}
 
-We also attempted to use DARLA’s vowel extraction tools \cite{DARLA} to extract formants and vowel sounds from the speech files so we would be able to easily compare vowel sounds across different accents.
+We attempted to use DARLA’s vowel extraction tools \cite{DARLA} to extract vowel phonemes and formants from the speech files so we would be able to easily compare vowels across different accents.
 However, their vowel extraction tool was not consistent enough on our dataset.
 Due to the wide range in voice types and recording quality, it could not extract all vowels for each signal, even after denoising the speech files, and for some files it would completely fail to process.
 Therefore we could not obtain a set of all vowels and their formants for all speech files, so we could not make use of this tool in our final network.
@@ -71,8 +69,8 @@ Therefore we could not obtain a set of all vowels and their formants for all spe
 \subsection{Time-domain / FFT hybrid network}
 \label{subsec:fft}
 
-Another attempt at experimenting was the creation of a hybrid network in order to make the binary decision whether or not a speaker was a native speaker.
-Using raw FFT / Time-Domain features yielded in low testing error (50\%, essentially guessing), as this would be a very computationally complex task to do.
+Another exploration we did was exploring the use of a hybrid network.
+Using raw FFT / Time-Domain features resulted in low testing error (50\%, essentially guessing), as this would be a very computationally complex task to do.
 The configuration of the network is given in \Cref{fig:hybrid}.
 
 \begin{figure}[htb]
@@ -88,7 +86,7 @@ The configuration of the network is given in \Cref{fig:hybrid}.
 
 Lastly, we attempted to use filter bank energies in our neural network.
 Previous research has shown success using filter bank energies, or FBEs, for accent classification and speech recognition \cite{Paliwal, chuaccent}.
-However, when we tested it in our implementation we did not see any improvement in testing accuracy and occasionally saw a decrease.
+However, when we tested it in our implementation we did not see any improvement in testing accuracy and occasionally even saw a decrease.
 We attempted to use FBEs both by themselves and in addition to MFCCs, but neither attempt gave promising results.
 
 \section{Most successful results}
@@ -111,20 +109,23 @@ In our implementation, the mean and standard deviation of the MFCCs over all the
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width = 8.5cm]{figs/cnn_graph}
-	\caption{A graph of averaged training error vs testing error over 5 different splits for the CNN implementation.}
+	\caption{A graph of averaged training error versus testing error over five different splits for the CNN implementation.}
 	\label{fig:cnn_graph}
 \end{figure}
 
-The performance of this CNN was as sufficient as the LSTM / RNN implementation, however, this implementation was more susceptible to the errors in labeling and quantity of positive and negative examples of native English speakers.
+The performance of this CNN was comparable to the LSTM / RNN implementation.
+However, this implementation was more susceptible to errors in labeling and quantity of positive and negative examples of native English speakers.
 Note that overfitting occurs past epoch 40, however implementation of an  l1 / l2 regularizer did not sufficiently control this overfitting.
 
 \subsection{LSTM/RNN implementation with VoiceBox preprocessed features}
 \label{subsec:rnn}
 
 This other implementation also resulted in a validation accuracy of 68\%, but with a test accuracy of 58\%.
-The features used were the features extracted from voicebox in the files “feat\_vec.mat”, which contained MFCCs for all speech signals.
-For each frame of each signal, 12 MFCCs were calculated and stored in a large array.
-The VoiceBox features performed poorly in a simple feed-forward neural network, but performed excellently in this network.
+The features used were the features extracted from voicebox in the files \texttt{feat\_vec.mat}, which contained MFCCs for all speech signals.
+For each frame of each signal, twelve MFCCs were calculated and stored in a large array.
+The MFCCs were then resampled so they would be the same length across all speech signals.
+
+The VoiceBox features performed poorly in a simple feed-forward neural network, but performed well in this network.
 The performance of this is similar to the feed-forward neural network done previously.
 Note that overfitting doesn’t seem to ever occur in this model, as the training accuracy seems to be bounded under 0.64.
 
@@ -138,7 +139,7 @@ Note that overfitting doesn’t seem to ever occur in this model, as the trainin
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width = 8.5cm]{figs/rnn_graph}
-	\caption{A graph of averaged training accuracy vs testing accuracy over 5 different splits for the RNN implementation.}
+	\caption{A graph of averaged training accuracy versus testing accuracy over five different splits for the RNN implementation.}
 	\label{fig:rnn_graph}
 \end{figure}
 
@@ -166,16 +167,34 @@ Unfortunately, the tool performed too inconsistently for it to be useful in our 
 \label{sec:future}
 
 Overall, the models could have been significantly improved with more data.
-It was observed that our data had “noisy-labelling”, where some people claimed to be English speakers but spoke slowly and with a non-English accent.
-Additionally, our dataset is rather small, meaning that more complex architectures would be impossible with our data size.
-In the future, I would add significantly more data (thousands or tens of thousands of speakers) in order to test these models, which would reduce the impact of noisy labelling and allow for the exploration of more complex architectures.
+The project was restricted to use only the provided data set, which only had 170 signals, and also had inaccuracies in some classifications.
+Some of the speakers labeled as native clearly struggled to speak the words and had accents not associated with any primarily English-speaking countries.
+In other words, our data had “noisy-labelling”, where some signals were labeled as English speakers but had slow speech and with a non-English accent.
+Additionally, since our dataset was rather small, more complex architectures would have been too difficult to train with such little data.
+In the future, we would add significantly more data (thousands or tens of thousands of speakers) in order to test these models  and be more accurate in our labeling of native versus non-native English speakers.
+This which would reduce the impact of noisy labelling and allow for the exploration of more complex architectures.
+
+We would also have done more research on how the different architectures worked.
+We tested many different configurations for the CNN and LSTM, but without a strong understanding of how they function we felt we were essentially making random guesses.
+We experimented with the number of layers, the number of units in each layer, where and how often we should apply pooling, and other features of the network, but none of our changes improved the performance of the network.
+Perhaps with a stronger background in neural networks we would have had a more intuitive understanding of the neural nets and we would have been able to experiment more thoughtfully and figure out how to shape the network to achieve what we wanted.
+
+Lastly, we would have looked into more robust and augmented feature extraction.
+The features we extracted were sensitive to the different lengths and sound qualities of the speech signals, so it is likely that our features themselves were very noisy.
+In the future, we would look into methods to normalize the speech signals so that the features are as comparable as possible.
+We explored this a bit with VoiceBox’s noise reduction and voice activity detection methods, but it did not perform as well as we needed it to and did not result in better performance.
+We would look into more advanced noise reduction and voice activity detection as well as optimal ways to resample the speech signals so they are all the same length without significantly distorting the speech itself.
+We would also have looked into more state-of-the-art methods of processing features for speaker recognition.
+Recent research seems to look towards i-vectors and x-vectors as features extracted from the neural network and show promising results in speaker recognition \cite{ivector, xvector}.
+
 
 \section{Conclusion}
 \label{sec:conclusion}
 
 Overall, it seems that the RNN had more consistent performance than our CNN implementation.
+This is likely because RNNs consider the relationship of features over time while CNNs cannot learn these correlations as well.
 However, the CNN implementation significantly reduced complexity and was able to run more than 100 epochs in less than a minute, whereas the RNN architecture required an hour to run 100 epochs.
-We’ve demonstrated two architectures that can be used to achieve 60\% testing accuracy on the dataset.
+We’ve demonstrated two architectures that can be used to achieve 60\% testing accuracy on the dataset based on the MFCCs.
 
 \bibliographystyle{IEEEbib}
 \bibliography{refs}

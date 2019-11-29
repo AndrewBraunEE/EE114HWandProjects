@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex Report"] 1574831416 "Report.aux" "Report.bbl" "Report" 1574831418
+["bibtex Report"] 1574996283 "Report.aux" "Report.bbl" "Report" 1574996330
   "./IEEEbib.bst" 1557232385 17903 9ff833f4bf67f47893e44ee17b52d211 ""
-  "Report.aux" 1574831417 6111 3328756d987b198131527d3d535f23da "pdflatex"
-  "refs.bib" 1574831400 2639 d947adf54de1ab75c597d52634859ccf ""
+  "Report.aux" 1574996285 6268 70cdd8d2a3426fe25e6699b40415712a "pdflatex"
+  "refs.bib" 1574996280 6082 a7fad8b1f279814a40f230fd3244bc79 ""
   (generated)
-  "Report.bbl"
   "Report.blg"
-["pdflatex"] 1574831416 "Report.tex" "c:/Users/AB/Downloads/Speech project here until final is good/EE114HWandProjects/Project/assignment/Report/Report.pdf" "Report" 1574831418
+  "Report.bbl"
+["pdflatex"] 1574996283 "Report.tex" "c:/Users/AB/Downloads/EE114HWandProjects/Project/assignment/Report/Report.pdf" "Report" 1574996330
   "C:/Users/AB/AppData/Local/MiKTeX/2.9/miktex/data/le/pdftex/pdflatex.fmt" 1574830513 4272950 c07a381f52e5a7ad7f90e58a1c7e97fe ""
   "C:/Users/AB/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map" 1574831002 121301 290dfd2b539bd1d5526474b87af3330e ""
   "C:/Users/AB/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc" 1458470287 4993 80dc9bab7f31fb78a000ccfed0e27cab ""
@@ -66,6 +66,7 @@
   "C:/Users/AB/AppData/Local/Programs/MiKTeX 2.9/tex/latex/amsmath/amstext.sty" 1574087199 2508 8ff93b1137020e8f21930562a874ae66 ""
   "C:/Users/AB/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/article.cls" 1573424404 19931 ac2a201ee7969e5fc885f1f0445b10c6 ""
   "C:/Users/AB/AppData/Local/Programs/MiKTeX 2.9/tex/latex/base/size10.clo" 1573424404 8446 1f8cadb2c4b2fd1ad8a2d81d1490f997 ""
+  "C:/Users/AB/AppData/Local/Programs/MiKTeX 2.9/tex/latex/cite/cite.sty" 1425353482 26218 19edeff8cdc2bcb704e8051dc55eb5a7 ""
   "C:/Users/AB/AppData/Local/Programs/MiKTeX 2.9/tex/latex/cleveref/cleveref.sty" 1524382254 337536 7fc6b003158402a4c694bc0a1b729308 ""
   "C:/Users/AB/AppData/Local/Programs/MiKTeX 2.9/tex/latex/graphics-cfg/graphics.cfg" 1465890692 1224 978390e9c2234eab29404bc21b268d1e ""
   "C:/Users/AB/AppData/Local/Programs/MiKTeX 2.9/tex/latex/graphics-def/pdftex.def" 1515448300 17334 520b9b85ad8a2a48eda3f643e27a5179 ""
@@ -92,11 +93,11 @@
   "C:/Users/AB/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/ot1pcr.fd" 1137143030 985 1ed784d7bfe47179f3550d2303b073f8 ""
   "C:/Users/AB/AppData/Local/Programs/MiKTeX 2.9/tex/latex/psnfss/ot1ptm.fd" 1137143030 961 15056f4a61917ceed3a44e4ac11fcc52 ""
   "C:/Users/AB/AppData/Local/Programs/MiKTeX 2.9/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "Report.aux" 1574831417 6111 3328756d987b198131527d3d535f23da "pdflatex"
-  "Report.bbl" 1574831416 1016 a9a8e1448c05e8d2a957d0c713d4d795 "bibtex Report"
-  "Report.out" 1574831417 842 6c3e10c50efaf818599b397d74bf8354 "pdflatex"
-  "Report.tex" 1574831278 11178 74dfbdddf45103804b534da45213dae9 ""
-  "c:/Users/AB/Downloads/Speech project here until final is good/EE114HWandProjects/Project/assignment/Report/Report.aux" 1574831417 6111 3328756d987b198131527d3d535f23da ""
+  "Report.aux" 1574996285 6268 70cdd8d2a3426fe25e6699b40415712a "pdflatex"
+  "Report.bbl" 1574996283 2294 07884fedf2d5c734fc5cb8a1f3a0737e "bibtex Report"
+  "Report.out" 1574996285 842 6c3e10c50efaf818599b397d74bf8354 "pdflatex"
+  "Report.tex" 1574996280 13206 0f7c2e9c1c55257fe3bd2a48b44e18d7 ""
+  "c:/Users/AB/Downloads/EE114HWandProjects/Project/assignment/Report/Report.aux" 1574996285 6268 70cdd8d2a3426fe25e6699b40415712a ""
   "figs/cnn_architecture.png" 1574744066 6950 bbe1b462f9a31dd648a2fb9dcbb5307f ""
   "figs/cnn_graph.png" 1574744077 51632 c41ef3476041332a870dd22d9008f556 ""
   "figs/hybrid_network.png" 1574744043 10609 e0e8b1cbc68492ec05a51e24183a8e5c ""
@@ -104,9 +105,9 @@
   "figs/rnn_graph.png" 1574744124 44585 25de2477b05e11ab579b7ee97b450d73 ""
   "spconf.sty" 1557232385 8798 121ab5e33850ab4cf48fc2795d92b250 ""
   (generated)
+  "c:/Users/AB/Downloads/EE114HWandProjects/Project/assignment/Report/Report.pdf"
   "Report.log"
-  "c:/Users/AB/Downloads/Speech project here until final is good/EE114HWandProjects/Project/assignment/Report/Report.pdf"
-  "Report.out"
-  "c:/Users/AB/Downloads/Speech project here until final is good/EE114HWandProjects/Project/assignment/Report/Report.log"
+  "c:/Users/AB/Downloads/EE114HWandProjects/Project/assignment/Report/Report.log"
   "Report.aux"
+  "Report.out"
   "Report.pdf"
