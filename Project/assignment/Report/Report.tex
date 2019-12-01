@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{spconf,amsmath,graphicx}
 \usepackage{cite}
+\usepackage{tabularx}
 \usepackage[hidelinks]{hyperref}
 \usepackage{cleveref}
 
@@ -144,6 +145,21 @@ Note that overfitting doesn’t seem to ever occur in this model, as the trainin
 	\caption{A graph of averaged training accuracy versus testing accuracy over five different splits for the RNN implementation.}
 	\label{fig:rnn_graph}
 \end{figure}
+
+\subsection{Test/training validation accuracy}
+\label{subsec:tables}
+
+\begin{center}
+	\begin{tabularx}{\linewidth}{|X|X|X|X|X|}
+		\hline
+		Ar\-chi\-tec\-ture & Training accuracy & Testing accuracy & Training loss & Testing loss \\
+		\hline
+		CNN & 0.70 & 0.60 & 0.58 & 0.63 \\
+		\hline
+		LSTM & 0.62 & 0.60 & 2.17 & 2.16 \\
+		\hline
+	\end{tabularx}
+\end{center}
 
 \section{Libraries used}
 \label{sec:libraries}
