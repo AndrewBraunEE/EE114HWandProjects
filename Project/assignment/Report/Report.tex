@@ -146,10 +146,12 @@ Note that overfitting doesn’t seem to ever occur in this model, as the trainin
 	\label{fig:rnn_graph}
 \end{figure}
 
-\subsection{Test/training validation accuracy}
+\subsection{Test/training accuracies}
 \label{subsec:tables}
 
-\begin{center}
+The training and test losses and accuracies for both the CNN and LSTM are given in \Cref{tab:acc}.
+\begin{table}[h]
+	\centering
 	\begin{tabularx}{\linewidth}{|X|X|X|X|X|}
 		\hline
 		Ar\-chi\-tec\-ture & Training accuracy & Testing accuracy & Training loss & Testing loss \\
@@ -159,7 +161,10 @@ Note that overfitting doesn’t seem to ever occur in this model, as the trainin
 		LSTM & 0.62 & 0.60 & 2.17 & 2.16 \\
 		\hline
 	\end{tabularx}
-\end{center}
+	\caption{Table of training accuracies and losses for the CNN and LSTM.}
+	\label{tab:acc}
+\end{table}
+From the table, we can see that testing accuracies for both types of networks were similar, though losses for the CNN were much lower than that for the LSTM.
 
 \section{Libraries used}
 \label{sec:libraries}

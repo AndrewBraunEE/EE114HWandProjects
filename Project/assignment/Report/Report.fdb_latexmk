@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex Report"] 1575168230 "Report.aux" "Report.bbl" "Report" 1575168798
+["bibtex Report"] 1575168980 "Report.aux" "Report.bbl" "Report" 1575169049
   "./IEEEbib.bst" 1557232385 17903 9ff833f4bf67f47893e44ee17b52d211 ""
-  "Report.aux" 1575168798 6613 e8a49d13625da8dc3ffe6a75560ac989 "pdflatex"
+  "Report.aux" 1575169048 6917 d46f807345c29488f43c22c76f778928 "pdflatex"
   "refs.bib" 1575007373 6225 d64703fa784f5295fc5aa65b62287890 ""
   (generated)
   "Report.bbl"
   "Report.blg"
-["pdflatex"] 1575168796 "Report.tex" "c:/Users/AB/Downloads/EE114HWandProjects/Project/assignment/Report/Report.pdf" "Report" 1575168798
+["pdflatex"] 1575169047 "Report.tex" "c:/Users/AB/Downloads/EE114HWandProjects/Project/assignment/Report/Report.pdf" "Report" 1575169049
   "C:/Users/AB/AppData/Local/MiKTeX/2.9/miktex/data/le/pdftex/pdflatex.fmt" 1575167565 4272950 9d10d606d62f452c6dde364859bc4455 ""
   "C:/Users/AB/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map" 1575168091 121301 290dfd2b539bd1d5526474b87af3330e ""
   "C:/Users/AB/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc" 1458470287 4993 80dc9bab7f31fb78a000ccfed0e27cab ""
@@ -94,11 +94,11 @@
   "C:/Users/AB/AppData/Local/Programs/MiKTeX 2.9/tex/latex/tools/array.sty" 1573424844 12560 4a5687b6718c08af61b1ad834ba27b87 ""
   "C:/Users/AB/AppData/Local/Programs/MiKTeX 2.9/tex/latex/tools/tabularx.sty" 1573424844 7149 0761e0046ae54b8c3b512ab8e07fef1c ""
   "C:/Users/AB/AppData/Local/Programs/MiKTeX 2.9/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "Report.aux" 1575168798 6613 e8a49d13625da8dc3ffe6a75560ac989 "pdflatex"
-  "Report.bbl" 1575168231 2432 0f6f53cbc4ddfd35258b28c110398a82 "bibtex Report"
-  "Report.out" 1575168798 935 5d26dce7a4b12ecd2547f93baafda12c "pdflatex"
-  "Report.tex" 1575168796 13725 dbc08118ea34dffe2ae120aea65e01cf ""
-  "c:/Users/AB/Downloads/EE114HWandProjects/Project/assignment/Report/Report.aux" 1575168798 6613 e8a49d13625da8dc3ffe6a75560ac989 ""
+  "Report.aux" 1575169048 6917 d46f807345c29488f43c22c76f778928 "pdflatex"
+  "Report.bbl" 1575168980 2432 0f6f53cbc4ddfd35258b28c110398a82 "bibtex Report"
+  "Report.out" 1575169048 926 46f7ba2ec07769fa9d1b88900927185b "pdflatex"
+  "Report.tex" 1575169046 14076 3d5e03ee7f68d27f4ce9790e269d1663 ""
+  "c:/Users/AB/Downloads/EE114HWandProjects/Project/assignment/Report/Report.aux" 1575169048 6917 d46f807345c29488f43c22c76f778928 ""
   "figs/cnn_architecture.png" 1574744066 6950 bbe1b462f9a31dd648a2fb9dcbb5307f ""
   "figs/cnn_graph.png" 1574744077 51632 c41ef3476041332a870dd22d9008f556 ""
   "figs/hybrid_network.png" 1574744043 10609 e0e8b1cbc68492ec05a51e24183a8e5c ""
@@ -106,9 +106,9 @@
   "figs/rnn_graph.png" 1574744124 44585 25de2477b05e11ab579b7ee97b450d73 ""
   "spconf.sty" 1557232385 8798 121ab5e33850ab4cf48fc2795d92b250 ""
   (generated)
-  "Report.aux"
   "Report.out"
   "c:/Users/AB/Downloads/EE114HWandProjects/Project/assignment/Report/Report.pdf"
-  "Report.pdf"
-  "Report.log"
   "c:/Users/AB/Downloads/EE114HWandProjects/Project/assignment/Report/Report.log"
+  "Report.log"
+  "Report.pdf"
+  "Report.aux"
