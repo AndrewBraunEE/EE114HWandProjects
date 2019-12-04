@@ -17,14 +17,14 @@
 
 \begin{abstract}
 	In this project, we trained a neural network to differentiate between native and non-native English speakers given speech signals of the same sentence.
-	We extracted MFCCs from each signal and fed them into a CNN and an RNN.
+	We extracted MFCCs from each signal and fed them into a feed-forward neural network and an RNN.
 	Throughout the report, the analysis and accuracy of many different methods to compare speech will be discussed. 
-	Our best results were achieved using a CNN given mean and standard deviation of MFCCs and an RNN given a time sequence of MFCCs.
+	Our best results were achieved using a feed-forward neural network given mean and standard deviation of MFCCs and an RNN given a time sequence of MFCCs.
 \end{abstract}
 
 \begin{keywords}
 neural network,
-CNN,
+feed-forward neural network,
 LSTM,
 MFCC,
 LPC
@@ -34,8 +34,8 @@ LPC
 \label{sec:intro}
 
 Neural networks have found widespread use in speech recognition.
-CNNs \cite{microsoft} and LSTMs \cite{google} are two types of networks that have found some success. 
-In this project, we used a data set of 170 speech signals, each of which is a different individual speaking the same sentence, to train a CNN and LSTM to classify native versus non-native English speakers and compare the performance of the two neural networks. 
+feed-forward neural networks \cite{microsoft} and LSTMs \cite{google} are two types of networks that have found some success. 
+In this project, we used a data set of 170 speech signals, each of which is a different individual speaking the same sentence, to train a feed-forward neural network and an LSTM to classify native versus non-native English speakers and compare the performance of the two neural networks. 
 
 Our approach was to figure out what the defining characteristics of different accents are and extract these characteristics from the speech signal.
 We researched different features and characteristics that could effectively separate native and non-native English speakers.
@@ -56,7 +56,7 @@ The most common way of doing this is dynamic time warping.
 Dynamic time warping compares two similar signals of different duration and attempts to normalize them in the time domain.
 
 Our issue was that performing dynamic time warping on these long signals, some with over a million samples, was computationally impossible.
-MATLAB would need to generate a million by million matrix that would take up over a terabyte in memory.
+MATLAB would need to perform massive matrix multiplications that would take up multiple terabytes in memory.
 To get around this, we tried time warping short frames of the signal, each only a few milliseconds at most, but this would distort the frames to the point of being unrecognizable.
 Moreover, since we had more than two signals, it would be difficult to perform dynamic time warping that would make them all equivalent.
 We attempted to use Euclidean distance from the training data to three known English speakers that had non-noisy speech, different accents, and different voices (one male American, one female British, one male Irish), but unfortunately, this feature did not correlate well with actual accent and during training gave a testing error of ~52\%.
@@ -64,7 +64,7 @@ We attempted to use Euclidean distance from the training data to three known Eng
 \subsection{Vowel extraction}
 \label{subsec:vowel}
 
-We attempted to use DARLA’s vowel extraction tools \cite{DARLA} to extract vowel phonemes and formants from the speech files so we would be able to easily compare vowels across different accents.
+We attempted to use DARLA’s vowel extraction tools \cite{DARLA} to extract vowel formants from the speech files so we would be able to easily compare vowels across different accents.
 However, their vowel extraction tool was not consistent enough on our dataset.
 Due to the wide range in voice types and recording quality, it could not extract all vowels for each signal, even after denoising the speech files, and for some files it would completely fail to process.
 Therefore we could not obtain a set of all vowels and their formants for all speech files, so we could not make use of this tool in our final network.
@@ -72,9 +72,8 @@ Therefore we could not obtain a set of all vowels and their formants for all spe
 \subsection{Time-domain / FFT hybrid network}
 \label{subsec:fft}
 
-Another exploration we did was exploring the use of a hybrid network.
-Using raw FFT / Time-Domain features resulted in low testing error (50\%, essentially guessing), as this would be a very computationally complex task to do.
-The configuration of the network is given in \Cref{fig:hybrid}.
+We also explored the use of a hybrid network, given in \Cref{fig:hybrid}.
+Using raw FFT / time-domain features gave low accuracies (50\%, essentially guessing) and was computationally expensive.
 
 \begin{figure}[htb]
 	\centering
@@ -95,35 +94,42 @@ We attempted to use FBEs both by themselves and in addition to MFCCs, as well as
 \section{Most successful results}
 \label{sec:success}
 
-\subsection{CNN: MFCC average and standard deviation}
-\label{subsec:cnn}
+\subsection{Feed-forward neural network: MFCC average and standard deviation}
+\label{subsec:feedforward}
 
 Our decision to use MFCCs as a feature was based off previous speech research done in the field: MFCCs have been previously used for Gaussian Mixture Models and other speech research \cite{mfccs, chuaccent}.
-We believed that non-native English speakers would be more likely to have a higher variation in MFCCs across each frame.
-In our implementation, the mean and standard deviation of the MFCCs over all the frames were fed into a simple feed-forward neural network and achieved testing accuracy (depending on the train / test split) anywhere from 58 to 69\%.
+We hypothesized that non-native English speakers would be more likely to have a higher variation in MFCCs across each frame, as we expected it would be more likely for non-native English speakers to make more “mistakes” in the way they speak.
+Our implementation was a feed-forward network with sigmoid activation layers. The mean and standard deviation of the MFCCs over all the frames were fed into the network and achieved testing accuracy (depending on the train / test split) anywhere from 58 to 69\%.
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width = 2.25cm]{figs/cnn_architecture}
-	\caption{A diagram of the neural network architecture.}
-	\label{fig:cnn_architecture}
+	\includegraphics[width = 2.15cm]{figs/ff_architecture}
+	\caption{A diagram of the feed-forward neural network architecture.}
+	\label{fig:ff_architecture}
 \end{figure}
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width = 8.5cm]{figs/cnn_graph}
-	\caption{A graph of averaged training error versus testing error over five different splits for the CNN implementation.}
-	\label{fig:cnn_graph}
+	\includegraphics[width = 8.5cm]{figs/ff_graph}
+	\caption{A graph of averaged training error versus testing error over five different splits for the feed-forward neural network implementation.}
+	\label{fig:ff_graph}
 \end{figure}
 
-The performance of this CNN was comparable to the LSTM / RNN implementation.
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width = 8.5cm]{figs/best_ff_acc}
+	\caption{A graph of our best training error versus testing error for the feed-forward neural network implementation.}
+	\label{fig:best_ff}
+\end{figure}
+
+The performance of this network was comparable to the LSTM / RNN implementation.
 However, this implementation was more susceptible to errors in labeling and quantity of positive and negative examples of native English speakers.
 Note that overfitting occurs past epoch 40, however implementation of an  l1 / l2 regularizer did not sufficiently control this overfitting.
 
 \subsection{LSTM/RNN implementation with VoiceBox preprocessed features}
 \label{subsec:rnn}
 
-This other implementation also resulted in a validation accuracy of 68\%, but with a test accuracy of 58\%.
+Our other implementation was an LSTM RNN with a LSTM-50 layer, followed by a pooling layer, followed by a LSTM-40 and LSTM-30 and a dense layer with a validation accuracy of 68\%.
 The features used were the features extracted from voicebox in the files \texttt{feat\_vec.mat}, which contained MFCCs for all speech signals.
 For each frame of each signal, twelve MFCCs were calculated and stored in a large array.
 The MFCCs were then resampled so they would be the same length across all speech signals.
@@ -134,7 +140,7 @@ Note that overfitting doesn’t seem to ever occur in this model, as the trainin
 
 \begin{figure}[htb]
 	\centering
-	\includegraphics[width = 2.25cm]{figs/rnn_architecture}
+	\includegraphics[width = 2.15cm]{figs/rnn_architecture}
 	\caption{Architecture of the LSTM RNN implementation.}
 	\label{fig:rnn_architecture}
 \end{figure}
@@ -149,22 +155,38 @@ Note that overfitting doesn’t seem to ever occur in this model, as the trainin
 \subsection{Test/training accuracies}
 \label{subsec:tables}
 
-The training and test losses and accuracies for both the CNN and LSTM are given in \Cref{tab:acc}.
-\begin{table}[h]
+The average training and test losses and accuracies for both the feed-forward neural network and LSTM are given in \Cref{tab:avg_acc}.
+\begin{table}[ht]
 	\centering
 	\begin{tabularx}{\linewidth}{|X|X|X|X|X|}
 		\hline
 		Ar\-chi\-tec\-ture & Training accuracy & Testing accuracy & Training loss & Testing loss \\
 		\hline
-		CNN & 0.70 & 0.60 & 0.58 & 0.63 \\
+		Feed-forward & 0.70 & 0.60 & 0.58 & 0.63 \\
 		\hline
 		LSTM & 0.62 & 0.60 & 2.17 & 2.16 \\
 		\hline
 	\end{tabularx}
-	\caption{Table of training accuracies and losses for the CNN and LSTM.}
-	\label{tab:acc}
+	\caption{Table of average training accuracies and losses for the feed-forward neural network and the LSTM. Accuracies were recorded over randomly split testing and training data.}
+	\label{tab:avg_acc}
 \end{table}
-From the table, we can see that testing accuracies for both types of networks were similar, though losses for the CNN were much lower than that for the LSTM.
+From the table, we can see that testing accuracies for both types of networks were similar, though losses for the feed-forward neural network were much lower than that for the LSTM.
+The best training and test losses and accuracies we achieved are given in \Cref{tab:best_acc}.
+\begin{table}[ht]
+	\centering
+	\begin{tabularx}{\linewidth}{|X|X|X|X|X|}
+		\hline
+		Ar\-chi\-tec\-ture & Training accuracy & Testing accuracy & Training loss & Testing loss \\
+		\hline
+		Feed-forward & 0.69 & 0.69 & 0.59 & 0.61 \\
+		\hline
+		LSTM & 0.61 & 0.72 & 2.42 & 2.42 \\
+		\hline
+	\end{tabularx}
+	\caption{Table of best training accuracies and losses for the feed-forward neural network and the LSTM observed over a single training/testing split. Accuracies over this run are given in \Cref{fig:best_ff}.}
+	\label{tab:best_acc}
+\end{table}
+From the table, we see that the LSTM performed slightly better than the feed-forward network during testing, despite having higher losses and a lower training accuracy.
 
 \section{Libraries used}
 \label{sec:libraries}
@@ -180,7 +202,7 @@ However, none of these gave better performance than the VoiceBox features.
 \texttt{fastdtw}: Calculation of overall Euclidean distance of one speech signal to another.
 Created distance features that were experimented with, but unfortunately, did not perform well enough as stated in \Cref{subsec:normalization}.
 
-\texttt{python\_speech\_features}: Used to create MFCC features (averages and standard deviations) that were used in our best-performing CNN.
+\texttt{python\_speech\_features}: Used to create MFCC features (averages and standard deviations) that were used in our best-performing feed-forward neural network.
 
 \texttt{DARLA}: Vowel extraction tool from Dartmouth.
 Performs automatic and semi-automatic vowel extraction given a speech signal, a transcript of what was said in the signal, and some characteristics of the speaker.
@@ -198,7 +220,7 @@ In the future, we would add significantly more data (thousands or tens of thousa
 This which would reduce the impact of noisy labelling and allow for the exploration of more complex architectures.
 
 We would also have done more research on how the different architectures worked.
-We tested many different configurations for the CNN and LSTM, but without a strong understanding of how they function we felt we were essentially making random guesses.
+We tested many different configurations for the feed-forward neural network and LSTM, but without a strong understanding of how they function we felt we were essentially making random guesses.
 We experimented with the number of layers, the number of units in each layer, where and how often we should apply pooling, and other features of the network, but none of our changes improved the performance of the network.
 Perhaps with a stronger background in neural networks we would have had a more intuitive understanding of the neural nets and we would have been able to experiment more thoughtfully and figure out how to shape the network to achieve what we wanted.
 
@@ -214,9 +236,9 @@ Recent research seems to look towards i-vectors and x-vectors as features extrac
 \section{Conclusion}
 \label{sec:conclusion}
 
-Overall, it seems that the RNN had more consistent performance than our CNN implementation.
-This is likely because RNNs consider the relationship of features over time while CNNs cannot learn these correlations as well.
-However, the CNN implementation significantly reduced complexity and was able to run more than 100 epochs in less than a minute, whereas the RNN architecture required an hour to run 100 epochs.
+Overall, it seems that the RNN had more consistent performance than our feed-forward neural network implementation.
+This is likely because RNNs consider the relationship of features over time while feed-forward neural networks cannot learn these correlations as well.
+However, the feed-forward neural network implementation significantly reduced complexity and was able to run more than 100 epochs in less than a minute, whereas the RNN architecture required an hour to run 100 epochs.
 We’ve demonstrated two architectures that can be used to achieve 60\% testing accuracy on the dataset based on the MFCCs.
 
 \bibliographystyle{IEEEbib}
