@@ -99,7 +99,8 @@ We attempted to use FBEs both by themselves and in addition to MFCCs, as well as
 
 Our decision to use MFCCs as a feature was based off previous speech research done in the field: MFCCs have been previously used for Gaussian Mixture Models and other speech research \cite{mfccs, chuaccent}.
 We hypothesized that non-native English speakers would be more likely to have a higher variation in MFCCs across each frame, as we expected it would be more likely for non-native English speakers to make more “mistakes” in the way they speak.
-Our implementation was a feed-forward network with sigmoid activation layers. The mean and standard deviation of the MFCCs over all the frames were fed into the network and achieved testing accuracy (depending on the train / test split) anywhere from 58 to 69\%.
+Our implementation was a feed-forward network consisting of four dense layers with sigmoid activations.
+The mean and standard deviation of the MFCCs over all the frames were fed into the network and achieved testing accuracy (depending on the train / test split) anywhere from 58 to 69\%.
 
 \begin{figure}[htb]
 	\centering
