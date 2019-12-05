@@ -23,8 +23,8 @@
 \end{abstract}
 
 \begin{keywords}
-neural network,
 feed-forward neural network,
+RNN,
 LSTM,
 MFCC,
 LPC
@@ -34,8 +34,8 @@ LPC
 \label{sec:intro}
 
 Neural networks have found widespread use in speech recognition.
-feed-forward neural networks \cite{microsoft} and long short-term memory networks (LSTMs) \cite{google} are two types of networks that have found some success. 
-In this project, we used a data set of 170 speech signals, each of which is a different individual speaking the same sentence, to train a feed-forward neural network and an LSTM to classify native versus non-native English speakers and compare the performance of the two neural networks. 
+feed-forward neural networks \cite{microsoft} and recurrent neural networks (RNNs), specifically long short-term memory (LSTM) \cite{google}, are two types of networks that have found some success. 
+In this project, we used a data set of 170 speech signals, each of which is a different individual speaking the same sentence, to train a feed-forward neural network and an RNN to classify native versus non-native English speakers and compare the performance of the two neural networks. 
 
 Our approach was to figure out what the defining characteristics of different accents are and extract these characteristics from the speech signal.
 We researched different features and characteristics that could effectively separate native and non-native English speakers.
@@ -123,14 +123,14 @@ The mean and standard deviation of the MFCCs over all the frames were fed into t
 	\label{fig:best_ff}
 \end{figure}
 
-The performance of this network was comparable to the LSTM / RNN implementation.
+The performance of this network was comparable to the RNN implementation.
 However, this implementation was more susceptible to errors in labeling and quantity of positive and negative examples of native English speakers.
 Note that overfitting occurs past epoch 40, however implementation of an  l1 / l2 regularizer did not sufficiently control this overfitting.
 
-\subsection{LSTM/RNN implementation with VoiceBox preprocessed features}
+\subsection{LSTM RNN implementation with VoiceBox preprocessed features}
 \label{subsec:rnn}
 
-Our other implementation was an LSTM RNN with a LSTM-50 layer, followed by a pooling layer, followed by a LSTM-40 and LSTM-30 and a dense layer with a validation accuracy of 68\%.
+Our other implementation was an RNN with a LSTM-50 layer, followed by a pooling layer, followed by a LSTM-40 and LSTM-30 and a dense layer with a validation accuracy of 68\%.
 The features used were the features extracted from voicebox in the files \texttt{feat\_vec.mat}, which contained MFCCs for all speech signals.
 For each frame of each signal, twelve MFCCs were calculated and stored in a large array.
 The MFCCs were then resampled so they would be the same length across all speech signals.
@@ -142,7 +142,7 @@ Note that overfitting doesn’t seem to ever occur in this model, as the trainin
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width = 2.15cm]{figs/rnn_architecture}
-	\caption{Architecture of the LSTM RNN implementation.}
+	\caption{Architecture of the RNN implementation.}
 	\label{fig:rnn_architecture}
 \end{figure}
 
@@ -156,7 +156,7 @@ Note that overfitting doesn’t seem to ever occur in this model, as the trainin
 \subsection{Test/training accuracies}
 \label{subsec:tables}
 
-The average training and test losses and accuracies for both the feed-forward neural network and LSTM are given in \Cref{tab:avg_acc}.
+The average training and test losses and accuracies for both the feed-forward neural network and RNN are given in \Cref{tab:avg_acc}.
 \begin{table}[ht]
 	\centering
 	\begin{tabularx}{\linewidth}{|X|X|X|X|X|}
@@ -165,13 +165,13 @@ The average training and test losses and accuracies for both the feed-forward ne
 		\hline
 		Feed-forward & 0.70 & 0.60 & 0.58 & 0.63 \\
 		\hline
-		LSTM & 0.62 & 0.60 & 2.17 & 2.16 \\
+		RNN & 0.62 & 0.60 & 2.17 & 2.16 \\
 		\hline
 	\end{tabularx}
-	\caption{Table of average training accuracies and losses for the feed-forward neural network and the LSTM. Accuracies were recorded over randomly split testing and training data.}
+	\caption{Table of average training accuracies and losses for the feed-forward neural network and the RNN. Accuracies were recorded over randomly split testing and training data.}
 	\label{tab:avg_acc}
 \end{table}
-From the table, we can see that testing accuracies for both types of networks were similar, though losses for the feed-forward neural network were much lower than that for the LSTM.
+From the table, we can see that testing accuracies for both types of networks were similar, though losses for the feed-forward neural network were much lower than that for the RNN.
 The best training and test losses and accuracies we achieved are given in \Cref{tab:best_acc}.
 \begin{table}[!ht]
 	\centering
@@ -181,13 +181,13 @@ The best training and test losses and accuracies we achieved are given in \Cref{
 		\hline
 		Feed-forward & 0.69 & 0.69 & 0.59 & 0.61 \\
 		\hline
-		LSTM & 0.61 & 0.72 & 2.42 & 2.42 \\
+		RNN & 0.61 & 0.72 & 2.42 & 2.42 \\
 		\hline
 	\end{tabularx}
-	\caption{Table of best training accuracies and losses for the feed-forward neural network and the LSTM observed over a single training/testing split. Accuracies over this run are given in \Cref{fig:best_ff}.}
+	\caption{Table of best training accuracies and losses for the feed-forward neural network and the RNN observed over a single training/testing split. Accuracies over this run are given in \Cref{fig:best_ff}.}
 	\label{tab:best_acc}
 \end{table}
-From the table, we see that the LSTM performed slightly better than the feed-forward network during testing, despite having higher losses and a lower training accuracy.
+From the table, we see that the RNN performed slightly better than the feed-forward network during testing, despite having higher losses and a lower training accuracy.
 
 \section{Libraries used}
 \label{sec:libraries}
@@ -221,7 +221,7 @@ In the future, we would add significantly more data (thousands or tens of thousa
 This which would reduce the impact of noisy labelling and allow for the exploration of more complex architectures.
 
 We would also have done more research on how the different architectures worked.
-We tested many different configurations for the feed-forward neural network and LSTM, but without a strong understanding of how they function we felt we were essentially making random guesses.
+We tested many different configurations for the feed-forward neural network and RNN, but without a strong understanding of how they function we felt we were essentially making random guesses.
 We experimented with the number of layers, the number of units in each layer, where and how often we should apply pooling, and other features of the network, but none of our changes improved the performance of the network.
 Perhaps with a stronger background in neural networks we would have had a more intuitive understanding of the neural nets and we would have been able to experiment more thoughtfully and figure out how to shape the network to achieve what we wanted.
 
