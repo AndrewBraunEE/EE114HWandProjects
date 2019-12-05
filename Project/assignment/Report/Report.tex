@@ -240,7 +240,8 @@ Recent research seems to look towards i-vectors and x-vectors as features extrac
 Overall, it seems that the RNN had more consistent performance than our feed-forward neural network implementation.
 This is likely because RNNs consider the relationship of features over time while feed-forward neural networks cannot learn these correlations as well.
 However, the feed-forward neural network implementation significantly reduced complexity and was able to run more than 100 epochs in less than a minute, whereas the RNN architecture required an hour to run 100 epochs.
-We’ve demonstrated two architectures that can be used to achieve 60\% testing accuracy on the dataset based on the MFCCs.
+We’ve demonstrated two architectures that can achieve around 60\% testing accuracy on average on the dataset, given MFCCs as features.
+When comparing the best results across multiple runs, the feed-forward network achieved up to 69\% testing accuracy and the RNN achieved up to 72\% testing accuracy.
 
 \bibliographystyle{IEEEbib}
 \bibliography{refs}
