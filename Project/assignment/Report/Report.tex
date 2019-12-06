@@ -66,7 +66,7 @@ We attempted to use Euclidean distance from the training data to three known Eng
 
 We attempted to use DARLA’s vowel extraction tools \cite{DARLA} to extract vowel formants from the speech files so we would be able to easily compare vowels across different accents.
 However, their vowel extraction tool was not consistent enough on our dataset.
-Due to the wide range in voice types and recording quality, it could not extract all vowels for each signal, even after denoising the speech files, and for some files it would completely fail to process.
+Due to the wide range in voice types and recording quality, it could not extract all vowels for all signals, even after denoising the speech files, and for some files it would completely fail to process.
 Therefore we could not obtain a set of all vowels and their formants for all speech files, so we could not make use of this tool in our final network.
 
 \subsection{Time-domain / FFT hybrid network}
@@ -86,8 +86,8 @@ Using raw FFT / time-domain features gave low accuracies (50\%, essentially gues
 \subsection{Filter bank energies and LPCs}
 \label{subsec:fbe}
 
-Lastly, we attempted to use filter bank energies and linear predictive coefficients (LPCs) in our neural network.
-Previous research has shown success using filter bank energies (FBEs) for accent classification and speech recognition \cite{Paliwal, chuaccent}, and LPCs have been used for speaker recognition \cite{lpc}.
+Lastly, we attempted to use filter bank energies (FBEs) and linear predictive coefficients (LPCs) in our neural network.
+Previous research has shown success using FBEs for accent classification and speech recognition \cite{Paliwal, chuaccent}, and LPCs have been used for speaker recognition \cite{lpc}.
 However, when we tested them in our implementation we did not see any improvement in testing accuracy and occasionally even saw a decrease.
 We attempted to use FBEs both by themselves and in addition to mel-frequency cepstral coefficients (MFCCs), as well as LPCs by themselves or with MFCCs and FBEs, but none of these attempts gave promising results.
 
@@ -99,7 +99,7 @@ We attempted to use FBEs both by themselves and in addition to mel-frequency cep
 
 Our decision to use MFCCs as a feature was based off previous speech research done in the field: MFCCs have been previously used for Gaussian Mixture Models and other speech research \cite{mfccs, chuaccent}.
 We hypothesized that non-native English speakers would be more likely to have a higher variation in MFCCs across each frame, as we expected it would be more likely for non-native English speakers to make more “mistakes” in the way they speak.
-Our implementation was a feed-forward network consisting of four dense layers with sigmoid activations.
+Our network implementation was a feed-forward network consisting of four dense layers with sigmoid activations.
 The mean and standard deviation of the MFCCs over all the frames were fed into the network and achieved testing accuracy (depending on the train / test split) anywhere from 58 to 69\%.
 
 \begin{figure}[htb]
@@ -112,7 +112,7 @@ The mean and standard deviation of the MFCCs over all the frames were fed into t
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width = 8.5cm]{figs/ff_graph}
-	\caption{A graph of averaged training error versus testing error over five different splits for the feed-forward neural network implementation.}
+	\caption{A graph of averaged training error versus testing error over five different splits for the feed-forward neural network implementation. Note that overfitting occurs past epoch 40, however implementation of an  l1 / l2 regularizer did not sufficiently control this overfitting.}
 	\label{fig:ff_graph}
 \end{figure}
 
@@ -125,7 +125,6 @@ The mean and standard deviation of the MFCCs over all the frames were fed into t
 
 The performance of this network was comparable to the RNN implementation.
 However, this implementation was more susceptible to errors in labeling and quantity of positive and negative examples of native English speakers.
-Note that overfitting occurs past epoch 40, however implementation of an  l1 / l2 regularizer did not sufficiently control this overfitting.
 
 \subsection{LSTM RNN implementation with VoiceBox preprocessed features}
 \label{subsec:rnn}
@@ -213,7 +212,7 @@ Unfortunately, the tool performed too inconsistently for it to be useful in our 
 \label{sec:future}
 
 Overall, the models could have been significantly improved with more data.
-The project was restricted to use only the provided data set, which only had 170 signals, and also had inaccuracies in some classifications.
+The project was restricted to use only the provided data set, which only had 170 signals and also had inaccuracies in some classifications.
 Some of the speakers labeled as native clearly struggled to speak the words and had accents not associated with any primarily English-speaking countries.
 In other words, our data had “noisy-labelling”, where some signals were labeled as English speakers but had slow speech and with a non-English accent.
 Additionally, since our dataset was rather small, more complex architectures would have been too difficult to train with such little data.
